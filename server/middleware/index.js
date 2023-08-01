@@ -1,6 +1,6 @@
 const { firebase } = require('../server.js');
 const { getAuth } = require('firebase-admin/auth');
-
+const db = require('../db');
 
 module.exports = {
 
@@ -15,14 +15,28 @@ module.exports = {
       .verifyIdToken(token)
       .then((decodedToken) => {
         req.headers.uid = decodedToken.uid;
-        return next();
-        })
-        .catch((err) => {
+        return decodedToken.uid;
+      })
+      .catch((err) => {
           console.error('Error decoding token:', err);
           res.status(403).send({ error: err });
-        });
+      });
+      .then((uid) => {
+          return db.query('SELECT id FROM users WHERE uid = $1', [uid]);
+      })
+      .then((userId) => {
+          if (!userId) => {
+            res.status(404).end();
+          } else {
+            req.headers.userId = userId;
+          }
+      })
+      .catch((err) => {
+        console.error('Error retrieving user_id from database:', err);
+        res.status(500).end();
+      })
     }
 
-    }
+  }
 
 };
