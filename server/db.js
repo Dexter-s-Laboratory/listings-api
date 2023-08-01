@@ -1,8 +1,12 @@
-// db.js
+require('dotenv').config();
 const pgp = require('pg-promise')();
-const connectionURI = process.env.DATABASE_URI;
-//example DATABASE_URI: 'postgres://username:password@localhost:5432/dbname'
 
-const db = pgp(connectionURI);
+const db = pgp({
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
+  database: process.env.PGDATABASE,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD
+});
 
 module.exports = db;
