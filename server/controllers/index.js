@@ -1,24 +1,72 @@
-const model = require('../models');
+const model = require("../models");
 
 module.exports = {
-
-  getListings: (req, res) => {
-    res.end();
+  getProducts: (req, res) => {
+    try {
+      let products = model.getProductsFromDB();
+      res.send(products);
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   getListingById: (req, res) => {
-    res.end();
+    try {
+      let id = req.query.listing_id;
+      res.send(model.getListingsByIdFromDB(id));
+    } catch (err) {
+      res.status(400).send(err);
+    };
+  },
+
+  getListingByUserId: (req, res) => {
+    try {
+      let id = req.query.user_id;
+      res.send(model.getActiveListingsByUserIdFromDB(id));
+    } catch (err) {
+      res.status(400).send(err);
+    };
+  },
+
+  getMyListings: (req,res) => {
+    try {
+      let id = req.query.user_id;
+      res.send(model.getMyListingsFromDB(id));
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   createListing: (req, res) => {
-    res.end();
+    try {
+      res.status(201).send(model.createListingInDB(req.body));
+    } catch (err) {
+      res.status(400).send(err);
+    };
+  },
+  createProduct: (req,res) => {
+    try {
+      res.status(201).send(model.createProductInDB(req.body))
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   updateListingDetails: (req, res) => {
-    res.end();
+    let id = req.params.listing_id;
+    try {
+      res.send(model.updateListingDetailsInDB(id, req.body));
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   deleteListing: (req, res) => {
-    res.end();
-  }
+    let id = req.params.listing_id;
+    try {
+      res.status(204).send(model.deleteListingFromDB(id, req.body));
+    } catch (err) {
+      res.status(400).send(err);
+    };
+  },
 };
