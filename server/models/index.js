@@ -2,12 +2,12 @@ const db = require('../db');
 
 module.exports = {
 
-  getListingsFromDB: () => {
-
+  getProductsFromDB: async () => {
+    return await db.query('SELECT * FROM products');
   },
 
-  getListingsByIdFromDB: () => {
-
+  getListingsByIdFromDB: async (id) => {
+    return await db.query('')
   },
 
   createListingInDB: () => {

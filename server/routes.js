@@ -2,19 +2,21 @@ var controller = require('./controllers');
 var router = require('express').Router();
 
 // GET /api/listings?query=
-router.get('/listings', controller.getListings);
+router.get('/api/products', controller.getProducts);
 
 // GET /api/listings/:listing_id
-router.get('/listings/:listing_id', controller.getListingById);
+router.get('/api/listings/:listing_id', controller.getListingById);
 
 // POST /api/listings (authentication required)
-router.post('/listings', controller.createListing);
+router.post('/api/listings', controller.createListing);
+
+//POST /api/
 
 // PUT /api/listings/:listing_id/:attribute (authentication required)
-router.put('/listings/:listing_id/details', controller.updateListingDetails);
+router.put('/api/listings/:listing_id/details', controller.updateListingDetails);
 
 // DELETE /api/listings/:listing_id (authentication required)
-router.delete('/listings/:listing_id', controller.deleteListing);
+router.delete('/api/listings/:listing_id', controller.deleteListing);
 
 module.exports = router;
 
