@@ -37,6 +37,9 @@ module.exports = {
       L.created_at`;
     return await db.query(query, [id])
   },
+  getMyListingsFromDB: async (id) => {
+
+  },
 
   createListingInDB: () => {
 
