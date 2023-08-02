@@ -1,5 +1,4 @@
 const model = require("../models");
-//model. getProductsFromDB, getListingsByIdFromDB, createListingInDB, updateListingDetailsInDB, deleteListingFromDB
 
 module.exports = {
   getProducts: (req, res) => {

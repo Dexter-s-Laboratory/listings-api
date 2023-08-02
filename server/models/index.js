@@ -127,7 +127,7 @@ module.exports = {
           category,
           description
         ) VALUES ($1, $2, $3)
-        RETURNING id;`; // This statement returns the ID of the newly created product.
+        RETURNING id;`;
       return await db.query(query, [product.name, product.category, product.description]);
     },
 
