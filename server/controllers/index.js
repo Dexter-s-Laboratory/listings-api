@@ -18,6 +18,16 @@ module.exports = {
       res.status(400).send(err);
     };
   },
+
+  getListingByUserId: (req, res) => {
+    try {
+      let id = req.query.user_id;
+      res.send(model.getActiveListingsByUserIdFromDB(id));
+    } catch (err) {
+      res.status(400).send(err);
+    };
+  },
+
   getMyListings: (req,res) => {
     try {
       let id = req.query.user_id;
