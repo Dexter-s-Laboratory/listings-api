@@ -10,14 +10,13 @@ router.get('/lp/:listing_id', controller.getListingById);
 // GET mylistings by user_id
 router.get('/lp/mylistings/:user_id', controller.getMyListings);
 
-//GET listings by
+// GET listings by user_id
 router.get('/lp/user/:user_id', controller.getListingByUserId);
-
 
 // POST /api/listings (authentication required)
 router.post('/lp', controller.createListing);
 
-//POST /api/products
+// POST /api/products
 router.post('/lp/products', controller.createProduct)
 
 // PUT /api/listings/:listing_id/:attribute (authentication required)
