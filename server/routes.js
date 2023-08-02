@@ -8,7 +8,7 @@ router.get('/api/products', controller.getProducts);
 router.get('/api/listings/:listing_id', controller.getListingById);
 
 // GET mylistings by user_id
-router.get('/api/listings/:user_id/', controller.getMyListingsById)
+router.get('/api/listings/:user_id/', controller.getMyListings);
 
 // POST /api/listings (authentication required)
 router.post('/api/listings', controller.createListing);

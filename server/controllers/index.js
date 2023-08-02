@@ -26,7 +26,7 @@ module.exports = {
     } catch (err) {
       res.status(400).send(err);
     };
-  }
+  },
 
   createListing: (req, res) => {
     res.end();
