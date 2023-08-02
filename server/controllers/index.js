@@ -1,30 +1,31 @@
-const model = require('../models');
+const model = require("../models");
 //model. getProductsFromDB, getListingsByIdFromDB, createListingInDB, updateListingDetailsInDB, deleteListingFromDB
 
-
 module.exports = {
-
   getProducts: (req, res) => {
-    let products = model.getProductsFromDB()
-
-
-    res.end();
+    try {
+      let products = model.getProductsFromDB();
+      res.send(products);
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   getListingById: (req, res) => {
-    let id = req.query.listing_id;
-
-    res.end();
+    try {
+      let id = req.query.listing_id;
+      res.send(getListingsByIdFromDB(id));
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   createListing: (req, res) => {
-
     res.end();
   },
 
   updateListingDetails: (req, res) => {
     let id = req.params.listing_id;
-
 
     res.end();
   },
@@ -32,7 +33,6 @@ module.exports = {
   deleteListing: (req, res) => {
     let id = req.params.listing_id;
 
-
     res.end();
-  }
+  },
 };
