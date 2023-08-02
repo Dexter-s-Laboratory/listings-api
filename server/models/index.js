@@ -144,24 +144,18 @@ module.exports = {
     let query = `
       UPDATE listings
       SET
-        seller_id = $1,
-        product_id = $2,
-        transaction_id = $3,
-        condition = $4,
-        price = $5,
-        description = $6,
-        status = $7,
-        created_at = $8
-      WHERE id = $9;`;
+        transaction_id = $1,
+        condition = $2,
+        price = $3,
+        description = $4,
+        status = $5,
+      WHERE id = $6;`;
     return await db.query(query, [
-      listing.seller_id,
-      listing.product_id,
       listing.transaction_id,
       listing.condition,
       listing.price,
       listing.description,
       listing.status,
-      listing.created_at,
       id,
     ]);
   },
