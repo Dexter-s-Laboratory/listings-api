@@ -14,6 +14,7 @@ router.get('/api/listings/:user_id/', controller.getMyListings);
 router.post('/api/listings', controller.createListing);
 
 //POST /api/
+router.post('/api/products', controller.createProduct)
 
 // PUT /api/listings/:listing_id/:attribute (authentication required)
 router.put('/api/listings/:listing_id/details', controller.updateListingDetails);

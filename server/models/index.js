@@ -1,9 +1,8 @@
-const db = require('../db');
+const db = require("../db");
 
 module.exports = {
-
   getProductsFromDB: async () => {
-    return await db.query('SELECT * FROM products');
+    return await db.query("SELECT * FROM products");
   },
 
   getListingsByIdFromDB: async (id) => {
@@ -35,7 +34,7 @@ module.exports = {
       L.description,
       L.status,
       L.created_at`;
-    return await db.query(query, [id])
+    return await db.query(query, [id]);
   },
 
   getMyListingsFromDB: async (id) => {
@@ -101,19 +100,59 @@ module.exports = {
         WHERE L.seller_id = $1
         GROUP BY L.id
     ) L
-`
-  return await db.query(query,[id]);
+`;
+    return await db.query(query, [id]);
   },
 
-  createListingInDB: () => {
-
+  createListingInDB: async (listing) => {
+    let query = `
+      INSERT INTO listings (
+        seller_id,
+        product_id,
+        transaction_id,
+        condition,
+        price,
+        description,
+        status,
+        created_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id;`;
+    return await db.query(query, [listing.seller_id, listing.product_id, listing.transaction_id, listing.condition, listing.price, listing.description, listing.status, listing.created_at]);
   },
 
-  updateListingDetailsInDB: () => {
+  createProductInDB: async (product) => {
+      let query = `
+        INSERT INTO products (
+          name,
+          category,
+          description
+        ) VALUES ($1, $2, $3)
+        RETURNING id;`; // This statement returns the ID of the newly created product.
+      return await db.query(query, [product.name, product.category, product.description]);
+    },
 
+  updateListingDetailsInDB: async (id, listing) => {
+    let query = `
+      UPDATE listings
+      SET
+        seller_id = $1,
+        product_id = $2,
+        transaction_id = $3,
+        condition = $4,
+        price = $5,
+        description = $6,
+        status = $7,
+        created_at = $8
+      WHERE id = $9;`;
+    return await db.query(query, [listing.seller_id, listing.product_id, listing.transaction_id, listing.condition, listing.price, listing.description, listing.status, listing.created_at, id]);
   },
 
-  deleteListingFromDB: () => {
 
+  deleteListingFromDB: async (id) => {
+    let query = `
+      DELETE FROM listings
+      WHERE id = $1;`;
+    return await db.query(query, [id]);
   }
+
 };

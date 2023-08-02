@@ -29,18 +29,35 @@ module.exports = {
   },
 
   createListing: (req, res) => {
-    res.end();
+    try {
+      res.status(201).send(model.createListingInDB(req.body));
+    } catch (err) {
+      res.status(400).send(err);
+    };
+  },
+  createProduct: (req,res) => {
+    try {
+      res.status(201).send(model.createProductInDB(req.body))
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   updateListingDetails: (req, res) => {
     let id = req.params.listing_id;
-
-    res.end();
+    try {
+      res.send(model.updateListingDetailsInDB(id, req.body));
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 
   deleteListing: (req, res) => {
     let id = req.params.listing_id;
-
-    res.end();
+    try {
+      res.status(204).send(model.deleteListingFromDB(id, req.body));
+    } catch (err) {
+      res.status(400).send(err);
+    };
   },
 };
