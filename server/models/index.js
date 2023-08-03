@@ -86,7 +86,7 @@ module.exports = {
       listings L
       LEFT JOIN listing_photos LP ON L.id = LP.listing_id
     WHERE
-      L.product_id = $1
+      L.seller_id = $1
     GROUP BY
       L.id,
       L.seller_id,
