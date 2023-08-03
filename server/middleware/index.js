@@ -24,13 +24,12 @@ module.exports = {
         .then((uid) => {
           return db.query('SELECT id FROM users WHERE firebase_uid = $1', [uid]);
         })
-        .then((userId) => {
-          if (!userId) {
-            res.status(404).end();
-          } else {
-            console.log(userId);
-            req.headers.userId = userId;
-          }
+        .then((result) => {
+            if (!result[0).id) {
+              res.status(404).end();
+            } else {
+              req.headers.userId = result[0].id;
+            }
         })
         .catch((err) => {
           console.error('Error retrieving user_id from database:', err);
