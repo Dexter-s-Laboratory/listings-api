@@ -25,7 +25,7 @@ module.exports = {
           return db.query('SELECT id FROM users WHERE firebase_uid = $1', [uid]);
         })
         .then((result) => {
-            if (!result[0).id) {
+            if (!result[0].id) {
               res.status(404).end();
             } else {
               req.headers.userId = result[0].id;
