@@ -1,11 +1,11 @@
 const db = require("../db");
 
 module.exports = {
-  getProductsFromDB: async () => {
-    return await db.query("SELECT * FROM products");
+  getProductsFromDB: () => {
+    return db.query("SELECT * FROM products");
   },
 
-  getListingsByIdFromDB: async (id) => {
+  getListingsByIdFromDB: (id) => {
     let query = `
     SELECT
       L.id,
@@ -34,10 +34,10 @@ module.exports = {
       L.description,
       L.status,
       L.created_at`;
-    return await db.query(query, [id]);
+    return db.query(query, [id]);
   },
 
-  getActiveListingsByUserIdFromDB: async (user_id) => {
+  getActiveListingsByUserIdFromDB: (user_id) => {
     let query = `
     SELECT
       L.id,
@@ -66,10 +66,10 @@ module.exports = {
       L.description,
       L.status,
       L.created_at`;
-    return await db.query(query, [user_id]);
+    return db.query(query, [user_id]);
   },
 
-  getMyListingsFromDB: async (id) => {
+  getMyListingsFromDB: (id) => {
     let query = `
     SELECT
       L.id,
@@ -97,10 +97,10 @@ module.exports = {
       L.description,
       L.status,
       L.created_at`;
-    return await db.query(query, [id]);
+    return db.query(query, [id]);
   },
 
-  createListingInDB: async (listing) => {
+  createListingInDB: (listing) => {
     let query = `
       INSERT INTO listings (
         seller_id,
@@ -113,7 +113,7 @@ module.exports = {
         created_at
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING id;`;
-    return await db.query(query, [
+    return db.query(query, [
       listing.seller_id,
       listing.product_id,
       listing.transaction_id,
@@ -125,7 +125,7 @@ module.exports = {
     ]);
   },
 
-  createProductInDB: async (product) => {
+  createProductInDB: (product) => {
     let query = `
         INSERT INTO products (
           name,
@@ -133,14 +133,14 @@ module.exports = {
           description
         ) VALUES ($1, $2, $3)
         RETURNING id;`;
-    return await db.query(query, [
+    return db.query(query, [
       product.name,
       product.category,
       product.description,
     ]);
   },
 
-  updateListingDetailsInDB: async (id, listing) => {
+  updateListingDetailsInDB: (id, listing) => {
     let query = `
       UPDATE listings
       SET
@@ -150,7 +150,7 @@ module.exports = {
         description = $4,
         status = $5,
       WHERE id = $6;`;
-    return await db.query(query, [
+    return db.query(query, [
       listing.transaction_id,
       listing.condition,
       listing.price,
@@ -160,10 +160,10 @@ module.exports = {
     ]);
   },
 
-  deleteListingFromDB: async (id) => {
+  deleteListingFromDB: (id) => {
     let query = `
       DELETE FROM listings
       WHERE id = $1;`;
-    return await db.query(query, [id]);
+    return db.query(query, [id]);
   },
 };
