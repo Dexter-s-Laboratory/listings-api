@@ -132,13 +132,17 @@ module.exports = {
         INSERT INTO products (
           name,
           category,
-          description
-        ) VALUES ($1, $2, $3)
+          description,
+          photo_url,
+          created_at,
+        ) VALUES ($1, $2, $3, $4, $5)
         RETURNING id;`;
     return db.query(query, [
       product.name,
       product.category,
       product.description,
+      product.photo_url,
+      date.now();
     ]);
   },
 
