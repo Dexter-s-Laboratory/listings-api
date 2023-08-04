@@ -142,7 +142,7 @@ module.exports = {
       product.category,
       product.description,
       product.photo_url,
-      date.now();
+      date.now()
     ]);
   },
 
