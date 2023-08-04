@@ -99,7 +99,7 @@ module.exports = {
       L.description,
       L.status,
 `;
-    return await db.query(query, [id]);
+    return  db.query(query, [id]);
   },
 
   createListingInDB: (listing) => {
