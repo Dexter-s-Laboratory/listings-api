@@ -29,6 +29,7 @@ module.exports = {
               res.status(404).end();
             } else {
               req.headers.userId = result[0].id;
+              next();
             }
         })
         .catch((err) => {
