@@ -72,31 +72,31 @@ module.exports = {
   getMyListingsFromDB: async (id) => {
     let query = `
     SELECT
-      L.id,
-      L.seller_id,
-      L.product_id,
-      L.transaction_id,
-      L.condition,
-      L.price,
-      L.description,
-      L.status,
-      L.created_at,
-      ARRAY_AGG(LP.photo_url) AS photos
-    FROM
-      listings L
-      LEFT JOIN listing_photos LP ON L.id = LP.listing_id
-    WHERE
-      L.seller_id = $1
-    GROUP BY
-      L.id,
-      L.seller_id,
-      L.product_id,
-      L.transaction_id,
-      L.condition,
-      L.price,
-      L.description,
-      L.status,
-      L.created_at`;
+    L.id,
+    L.product_id,
+    P.name AS product_name,
+    L.transaction_id,
+    L.condition,
+    L.price,
+    L.description,
+    L.status,
+    ARRAY_AGG(LP.photo_url) AS photos
+FROM
+    listings L
+LEFT JOIN listing_photos LP ON L.id = LP.listing_id
+INNER JOIN products P ON L.product_id = P.id
+WHERE
+    L.seller_id = $1
+GROUP BY
+    L.id,
+    L.product_id,
+    P.name,
+    L.transaction_id,
+    L.condition,
+    L.price,
+    L.description,
+    L.status,
+`;
     return await db.query(query, [id]);
   },
 
